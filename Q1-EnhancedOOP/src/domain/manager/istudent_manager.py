@@ -15,3 +15,7 @@ class IStudentManager(ABC):
     @abstractmethod
     def drop(self, semester, course_code):
         pass
+
+    @abstractmethod
+    def gpa(self, student) -> float:
+        pass

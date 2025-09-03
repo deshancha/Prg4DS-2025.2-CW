@@ -8,13 +8,13 @@ class Student(Person):
         self.student_id = student_id
         self._semester_courses = {} # { "SEM_1": { "P4DSC": Course() } }
         self._gpa = 0.0
-        self._academic_status = AcademicStatus.NA
-        self._student_manager = student_manager
+        self._academic_status: AcademicStatus | None = None
+        self._student_manager: IStudentManager | None = student_manager
 
     def about(self):
         return f"{super().about()}, Std ID: {self.student_id}"
     
-    def get_academic_status(self):
+    def get_academic_status(self) -> AcademicStatus:
         return self._academic_status
     
     def enroll_course(self, semester, course):
@@ -23,6 +23,11 @@ class Student(Person):
     def drop_course(self, semester, course_code):
         self._student_manager.drop(self, semester, course_code)
 
+    def calculate_gpa(self) -> float:
+        self.gpa = self._student_manager.gpa(self)
+        self._academic_status = AcademicStatus.from_gpa(self.gpa)
+        return self.gpa
+    
 
 class UndergraduateStudent(Student):
     def __init__(self, person_id, name, student_id):
