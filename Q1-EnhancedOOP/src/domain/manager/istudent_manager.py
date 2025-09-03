@@ -11,3 +11,7 @@ class IStudentManager(ABC):
     @abstractmethod
     def enroll(self, student, semester, course):
         pass
+
+    @abstractmethod
+    def drop(self, semester, course_code):
+        pass

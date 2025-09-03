@@ -43,5 +43,25 @@ class TestStudentEnrollment(unittest.TestCase):
             self.course
         )
 
+# Testing Student Drop Course
+class TestStudentDropCourse(unittest.TestCase):
+    def setUp(self):
+        self.semester = "SEM_1"
+        self.course_code = "P4DSC"
+        self.student = Student(1, "student A", "2025CS01", StudentManagerImp())
+        self.course = Course(self.course_code, "Programming for Data Sciecne")
+        self.student.enroll_course(self.semester, self.course)
+
+    def test_drop_existing_course_ok(self):
+        self.student.drop_course(self.semester, self.course.course_code)
+        self.assertNotIn(self.course_code, self.student._semester_courses[self.semester])
+
+    def test_drop_nonexist_course_raises_error_ok(self):
+        self.assertRaises(
+            ValueError,
+            self.student.drop_course,
+            self.semester,
+            "Not existinbg course code"
+        )
 if __name__ == "__main__":
     unittest.main()

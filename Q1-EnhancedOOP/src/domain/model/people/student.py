@@ -20,6 +20,10 @@ class Student(Person):
     def enroll_course(self, semester, course):
         self._student_manager.enroll(self, semester, course)
 
+    def drop_course(self, semester, course_code):
+        self._student_manager.drop(self, semester, course_code)
+
+
 class UndergraduateStudent(Student):
     def __init__(self, person_id, name, student_id):
         super().__init__(person_id, name, student_id)
