@@ -12,8 +12,8 @@ class Faculty(Person):
         super().__init__(person_id, name)
         self.department = department
 
-    def responsibilities(self):
-        return "Do Research, Teach Courses, Mentoring"
+    def about(self):
+        return f"{super().about()}, Department: {self.department}"
 
 # Professor
 class Professor(Faculty):
@@ -23,9 +23,6 @@ class Professor(Faculty):
             self.research_area = research_interest
         else:
             self.research_area = [research_interest]
-    
-    def get_responsibilities(self):
-        return "Head of Resrach Work, Academic Leadership"
 
 # Lecturer
 class Lecturer(Faculty):
@@ -35,9 +32,6 @@ class Lecturer(Faculty):
             self.teach_subjects = teach_subjects
         else:
             self.teach_subjects = [teach_subjects]
-    
-    def get_responsibilities(self):
-        return "Stdent Mentoring, Teaching Subjects"
     
 # Teaching Assitant
 class TA(Faculty):
@@ -54,6 +48,3 @@ class TA(Faculty):
             raise TypeError("assistant_to must be Lecturer or Professor")
         
         self.assistant_to = assistant_to
-    
-    def get_responsibilities(self):
-        return "Assist prof or lecturers in teaching, lab works"
