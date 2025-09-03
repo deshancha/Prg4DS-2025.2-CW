@@ -95,9 +95,15 @@ if __name__ == "__main__":
     except ValueError as e:
         print(f"GPA error: {e}")
 
-    # assign invalid gpa
+    # assign invalid gpa invalid range
     try:
         secure_student.gpa = 5.8
+    except (TypeError, ValueError) as e:
+        print(f"GPA set error: {e}")
+
+    # assign invalid gpa invalid type
+    try:
+        secure_student.gpa = "3"
     except (TypeError, ValueError) as e:
         print(f"GPA set error: {e}")
 
