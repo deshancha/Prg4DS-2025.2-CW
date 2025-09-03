@@ -32,7 +32,7 @@ Q1-EnhancedOOP:
     data:
       manager:
         - student_manager_imp.py
-    - main.py
+    - SecureStudentRecord.py
   tests:
     - test_faculty.py
     - test_person.py
@@ -42,8 +42,22 @@ Q1-EnhancedOOP:
 
 ## ▶️ Running Unit Tests
 
+This would execute student related logics and classes intializations
+
 From the project root:
 
 ```bash
 cd Q1-EnhancedOOP
 PYTHONPATH=src python -m unittest discover -s tests
+```
+
+## ▶️ Running SecureStudentRecord
+
+SecureStudentRecord has main method.
+
+From the project root:
+
+```bash
+cd Q1-EnhancedOOP
+python src/SecureStudentRecord.py
+```
