@@ -4,8 +4,8 @@
 # Date: 2025-09-03
 # =======================================================
 
-from people.faculty import Professor
-from people.student import Student
+from domain.model.people.faculty import Professor
+from domain.model.people.student import Student
 
 def main():
     interests = ["AI", "ML"]

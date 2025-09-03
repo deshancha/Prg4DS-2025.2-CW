@@ -6,7 +6,7 @@
 
 import unittest
 
-from people.person import Person
+from domain.model.people.person import Person
 
 # file private DummyPerson for suport testing abstract Person
 class _DummyPerson(Person):

@@ -6,7 +6,7 @@
 
 import unittest
 
-from people.faculty import Professor, TA, Lecturer
+from domain.model.people.faculty import Professor, TA, Lecturer
 
 class TestFaculty(unittest.TestCase):
     # Prof Unit
