@@ -14,6 +14,31 @@ This project demonstrates an **Enhanced Object-Oriented Design** that follows **
 
 ## 📂 Project Structure
 
+```yaml
+Q1-EnhancedOOP:
+  src:
+    domain:
+      model:
+        people:
+          - person.py
+          - student.py
+          - faculty.py
+        other:
+            - academic_status.py
+            - course.py
+            - grade.py
+      manager:
+       - istudent_manager.py
+    data:
+      manager:
+        - student_manager_imp.py
+    - main.py
+  tests:
+    - test_faculty.py
+    - test_person.py
+    - test_student_logics.py
+    - test_student.py
+
 ## ▶️ Running Unit Tests
 
 From the project root:
