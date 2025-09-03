@@ -6,7 +6,7 @@ class Student(Person):
     def __init__(self, person_id, name, student_id, student_manager):
         super().__init__(person_id, name)
         self.student_id = student_id
-        self._semester_courses = {} # { "SEM_1": { "P4DSC": Course() } }
+        self._semester_courses = {}
         self._gpa = 0.0
         self._academic_status: AcademicStatus | None = None
         self._student_manager: IStudentManager | None = student_manager
