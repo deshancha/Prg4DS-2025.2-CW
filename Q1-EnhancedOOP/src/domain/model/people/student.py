@@ -11,6 +11,10 @@ class Student(Person):
         self._academic_status: AcademicStatus | None = None
         self._student_manager: IStudentManager | None = student_manager
 
+    @property
+    def semester_courses(self):
+        return self._semester_courses
+
     def about(self):
         return f"{super().about()}, Std ID: {self.student_id}"
     

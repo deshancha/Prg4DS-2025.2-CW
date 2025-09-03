@@ -6,21 +6,21 @@ class StudentManagerImp(IStudentManager):
 
     # Enroll Course
     def enroll(self, student, semester, course):
-        if semester not in student._semester_courses:
-            student._semester_courses[semester] = {}
+        if semester not in student.semester_courses:
+            student.semester_courses[semester] = {}
 
-        if course.course_code in student._semester_courses[semester]:
+        if course.course_code in student.semester_courses[semester]:
             raise ValueError( f"{student.name}, already enrolled in Course:[{course.course_code}-{course.course_name}] Sem: {semester}" )
 
-        student._semester_courses[semester][course.course_code] = course
+        student.semester_courses[semester][course.course_code] = course
         print(f"{student.name} enrolled in {course.course_code} for {semester}.")
 
     # Remove Course
     def drop(self, student, semester, course_code):
-        if semester not in student._semester_courses or course_code not in student._semester_courses[semester]:
+        if semester not in student.semester_courses or course_code not in student.semester_courses[semester]:
             raise ValueError(f"{course_code} not found in {semester} courses for {student.name}.")
         
-        del student._semester_courses[semester][course_code]
+        del student.semester_courses[semester][course_code]
         print(f"{student.name} removed {course_code} from {semester}.")
 
     # Calculate GPA
@@ -28,7 +28,7 @@ class StudentManagerImp(IStudentManager):
         total_points = 0.0
         total_credits = 0.0
         
-        for semester_courses in student._semester_courses.values():
+        for semester_courses in student.semester_courses.values():
             for course in semester_courses.values():
                 if course.course_grade is None:
                     continue
