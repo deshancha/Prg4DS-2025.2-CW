@@ -104,7 +104,7 @@ class TestCalculateGPA(unittest.TestCase):
 class TestStudentAcademicStatus(unittest.TestCase):
     def setUp(self):
         self.semester = "SEM_1"
-        self.student = Student(1, "Saman", "2025CS01", StudentManagerImp())
+        self.student = Student(1, "Nimal", "2025CS01", StudentManagerImp())
         self.course = Course("P4DSC", "Programming for Data Sciecne", 3)
 
     def test_academic_status_deans_list_ok(self):
@@ -132,7 +132,7 @@ class TestStudentAcademicStatus(unittest.TestCase):
         self.student.enroll_course(self.semester, self.course)
 
         # set GPA 1.0 Grade.D
-        self.course.course_grade = Grade.F        
+        self.course.course_grade = Grade.D        
 
         self.student.calculate_gpa()
         
