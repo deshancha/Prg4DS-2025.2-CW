@@ -108,7 +108,7 @@ class TestStudentAcademicStatus(unittest.TestCase):
         self.semester = "SEM_1"
         self.course_code = "P4DSC"
         self.student = Student(1, "Nimal", "2025CS01", StudentManagerImp())
-        self.course = Course(self.course_code, "Programming for Data Sciecne", 3)
+        self.course = Course(self.course_code, "Programming for Data Sciecne")
 
     def test_academic_status_deans_list_ok(self):
         # Enrol Coause
@@ -146,8 +146,8 @@ class TestStudentSetResults(unittest.TestCase):
     def setUp(self):
         self.semester = "SEM_1"
         self.student = Student(1, "Saman", "2025CS01", StudentManagerImp())
-        self.course1 = Course("P4DSC", "Programming for Data Science", 4)
-        self.course2 = Course("DATA_VIS", "Data Visualization", 5)
+        self.course1 = Course("P4DSC", "Programming for Data Science")
+        self.course2 = Course("DATA_VIS", "Data Visualization")
 
         # Enroll courses
         self.student.enroll_course(self.semester, self.course1)
