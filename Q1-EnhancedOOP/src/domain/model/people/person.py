@@ -12,5 +12,5 @@ class Person(ABC):
         self.name = name
 
     @abstractmethod
-    def about(self):
-        return f"ID: {self.person_id}, Name: {self.name}"
+    def get_responsibilities(self):
+        pass

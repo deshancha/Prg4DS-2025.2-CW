@@ -15,9 +15,6 @@ class Student(Person):
     def semester_courses(self):
         return self._semester_courses
 
-    def about(self):
-        return f"{super().about()}, Std ID: {self.student_id}"
-    
     def get_academic_status(self) -> AcademicStatus:
         return self._academic_status
     
@@ -32,11 +29,23 @@ class Student(Person):
         self._academic_status = AcademicStatus.from_gpa(self.gpa)
         return self.gpa
     
+    # override
+    def get_responsibilities(self):
+        return f"Responsibilities of Student[{self.name}] goes here"
+    
 
 class UndergraduateStudent(Student):
     def __init__(self, person_id, name, student_id):
         super().__init__(person_id, name, student_id)
 
+    # override
+    def get_responsibilities(self):
+        return f"Responsibilities of UndergraduateStudent[{self.name}] goes here"
+
 class GraduateStudent(Student):
     def __init__(self, person_id, name, student_id):
         super().__init__(person_id, name, student_id)
+
+    # override
+    def get_responsibilities(self):
+        return f"Responsibilities of GraduateStudent[{self.name}] goes here"

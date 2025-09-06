@@ -10,7 +10,7 @@ from domain.model.people.person import Person
 
 # file private DummyPerson for suport testing abstract Person
 class _DummyPerson(Person):
-    def about(self):
+    def get_responsibilities(self):
         return super().about()
 
 class TestPerson(unittest.TestCase):

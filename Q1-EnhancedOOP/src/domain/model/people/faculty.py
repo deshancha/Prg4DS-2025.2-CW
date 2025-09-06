@@ -12,8 +12,12 @@ class Faculty(Person):
         super().__init__(person_id, name)
         self.department = department
 
-    def about(self):
-        return f"{super().about()}, Department: {self.department}"
+    # override
+    def get_responsibilities(self):
+        return "Responsibilities of Factulty goes here"
+    
+    def calculate_workload(self):
+        return 10
 
 # Professor
 class Professor(Faculty):
@@ -24,6 +28,13 @@ class Professor(Faculty):
         else:
             self.research_area = [research_interest]
 
+    # override
+    def get_responsibilities(self):
+        return f"Responsibilities of Professor[{self.name}] goes here"
+    
+    def calculate_workload(self):
+        return super.calculate_workload() + 50
+
 # Lecturer
 class Lecturer(Faculty):
     def __init__(self, person_id, name, department, teach_subjects):
@@ -32,6 +43,14 @@ class Lecturer(Faculty):
             self.teach_subjects = teach_subjects
         else:
             self.teach_subjects = [teach_subjects]
+
+    # override
+    def get_responsibilities(self):
+        return f"Responsibilities of Lecturer[{self.name}] goes here"
+    
+    # override
+    def calculate_workload(self):
+        return super.calculate_workload() + 40
     
 # Teaching Assitant
 class TA(Faculty):
@@ -48,3 +67,11 @@ class TA(Faculty):
             raise TypeError("assistant_to must be Lecturer or Professor")
         
         self.assistant_to = assistant_to
+
+    # override
+    def get_responsibilities(self):
+        return f"Responsibilities of TA[{self.name}] goes here"
+    
+    # override
+    def calculate_workload(self):
+        return super.calculate_workload() + 30
