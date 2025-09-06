@@ -8,7 +8,7 @@ This project demonstrates an **Enhanced Object-Oriented Design** that follows **
 ### ✅ Features
 - Separation of **Domain** and **Data** layers  
 - **Presentation Layer** covered with unit tests  
-- Extensible design using interfaces and implementations  
+- Extensible design using interfaces and implementations (eg: StudentManagerImp)
 
 ---
 
