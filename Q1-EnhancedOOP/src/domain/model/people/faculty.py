@@ -33,7 +33,7 @@ class Professor(Faculty):
         return f"Responsibilities of Professor[{self.name}] goes here"
     
     def calculate_workload(self):
-        return super.calculate_workload() + 50
+        return super().calculate_workload() + 50
 
 # Lecturer
 class Lecturer(Faculty):
@@ -50,7 +50,7 @@ class Lecturer(Faculty):
     
     # override
     def calculate_workload(self):
-        return super.calculate_workload() + 40
+        return super().calculate_workload() + 40
     
 # Teaching Assitant
 class TA(Faculty):
@@ -74,4 +74,4 @@ class TA(Faculty):
     
     # override
     def calculate_workload(self):
-        return super.calculate_workload() + 30
+        return super().calculate_workload() + 30
