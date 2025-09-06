@@ -17,6 +17,7 @@ class StudentManagerImp(IStudentManager):
         completed_courses = [result.course_code for result in student.course_results]
 
         # TODO: add student to course here
+        course.add_student(student.person_id, completed_courses)
 
         student.semester_courses[semester][course.course_code] = course
         Logger.info(f"{student.name} enrolled in {course.course_code} for {semester}")

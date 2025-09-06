@@ -20,4 +20,13 @@ class Course:
         self.should_have_completed = should_have_completed
 
     def add_student(self, person_id: str, completed_courses: List[str]):
-        pass
+
+        # check meets the prerequsites
+        if self.should_have_completed is not None:
+            for required in self.should_have_completed:
+                if required not in completed_courses:
+                    raise ValueError(f"Cannot enroll:{person_id} prerequisite {required} not completed for {self.course_code}")
+        
+        # check maximum allowed reached
+        if len(self.reading_students) >= self.max_students_allowd:
+            raise ValueError(f"Course {self.course_code} reached maximum allowed limit[{self.max_students_allowd}]")
