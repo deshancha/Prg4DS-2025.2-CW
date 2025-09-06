@@ -12,6 +12,11 @@ class StudentManagerImp(IStudentManager):
 
         if course.course_code in student.semester_courses[semester]:
             raise ValueError( f"{student.name}, already enrolled in Course:[{course.course_code}-{course.course_name}] Sem: {semester}" )
+        
+        # completed coursed of the student to validate prerequisites
+        completed_courses = [result.course_code for result in student.course_results]
+
+        # TODO: add student to course here
 
         student.semester_courses[semester][course.course_code] = course
         Logger.info(f"{student.name} enrolled in {course.course_code} for {semester}")
