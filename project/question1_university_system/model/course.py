@@ -13,4 +13,3 @@ class Course:
         self.course_code = code
         self.course_name = name
         self.course_credits = credits
-        self.course_grade: Grade | None = None

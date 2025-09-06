@@ -1,5 +1,6 @@
 from person import Person
 from model.academic_status import AcademicStatus
+from model.results import Results
 from manager.istudent_manager import IStudentManager
 
 class Student(Person):
@@ -10,10 +11,15 @@ class Student(Person):
         self._gpa = 0.0
         self._academic_status: AcademicStatus | None = None
         self._student_manager: IStudentManager | None = student_manager
+        self._course_results = []
 
     @property
     def semester_courses(self):
         return self._semester_courses
+    
+    @property
+    def course_results(self):
+        return self._course_results
 
     def get_academic_status(self) -> AcademicStatus:
         return self._academic_status
@@ -23,6 +29,9 @@ class Student(Person):
 
     def drop_course(self, semester, course_code):
         self._student_manager.drop(self, semester, course_code)
+
+    def set_results(self, results: Results):
+        self._student_manager.set_results(self, results)
 
     def calculate_gpa(self) -> float:
         self.gpa = self._student_manager.gpa(self)

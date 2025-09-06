@@ -11,6 +11,7 @@ from model.course import Course
 from manager.student_manager_imp import StudentManagerImp
 from secure_student_record import SecureStudentRecord
 from secure_student_record import ConstVals 
+from model.results import Results
 from model.grade import Grade
 
 # Testing Student
@@ -50,16 +51,19 @@ class TestSecureStudentRecord(unittest.TestCase):
         )
 
     def test_gpa_calculation_ok(self):
+        expected_gpa = 3.07
+        # enrolling for 4 courses
         for course in [self.course1, self.course2, self.course3, self.course4]:
             self.secure_student.enroll_course(self.semester, course)
 
-        self.course1.course_grade = Grade.A
-        self.course2.course_grade = Grade.B
-        self.course3.course_grade = Grade.B_PLUS
-        self.course4.course_grade = Grade.C
+        # setting values for 4 courses
+        self.student.set_results(Results(self.semester, self.course1.course_code, Grade.A ))
+        self.student.set_results(Results(self.semester, self.course2.course_code, Grade.B ))
+        self.student.set_results(Results(self.semester, self.course3.course_code, Grade.B_PLUS ))
+        self.student.set_results(Results(self.semester, self.course4.course_code, Grade.C ))
 
         gpa = self.secure_student.gpa
-        self.assertEqual(gpa, 3.07)
+        self.assertEqual(gpa, expected_gpa)
 
     def test_set_valid_gpa_ok(self):
         gpa_val = 3.75

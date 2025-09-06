@@ -6,6 +6,7 @@
 # =======================================================
 
 from abc import ABC, abstractmethod
+from model.results import Results
 
 class IStudentManager(ABC):
     @abstractmethod
@@ -14,6 +15,10 @@ class IStudentManager(ABC):
 
     @abstractmethod
     def drop(self, semester, course_code):
+        pass
+
+    @abstractmethod
+    def set_results(self, results: Results):
         pass
 
     @abstractmethod
