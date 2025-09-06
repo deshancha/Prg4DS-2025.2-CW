@@ -1,7 +1,12 @@
-from domain.model.people.student import Student
-from domain.model.other.course import Course
-from domain.model.other.grade import Grade
-from data.manager.student_manager_imp import StudentManagerImp
+# =======================================================
+# File: secure_student_record.py
+# Created by: CD
+# Date: 2025-09-06
+# =======================================================
+
+
+from student import Student
+from model.course import Course
 
 class ConstVals:    
     MAX_COURSES_PER_SEMESTER = 4

@@ -4,7 +4,7 @@
 # Date: 2025-09-03
 # =======================================================
 
-from .person import Person
+from person import Person
 
 # Faculty
 class Faculty(Person):

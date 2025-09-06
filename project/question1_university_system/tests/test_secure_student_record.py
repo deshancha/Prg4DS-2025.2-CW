@@ -6,12 +6,12 @@
 
 import unittest
 
-from domain.model.people.student import Student
-from domain.model.other.course import Course
-from data.manager.student_manager_imp import StudentManagerImp
+from student import Student
+from model.course import Course
+from manager.student_manager_imp import StudentManagerImp
 from secure_student_record import SecureStudentRecord
 from secure_student_record import ConstVals 
-from domain.model.other.grade import Grade
+from model.grade import Grade
 
 # Testing Student
 class TestSecureStudentRecord(unittest.TestCase):

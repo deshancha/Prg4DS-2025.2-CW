@@ -1,3 +1,10 @@
+# =======================================================
+# File: academic_status.py
+# Created by: CD
+# Date: 2025-09-06
+# =======================================================
+
+
 from enum import Enum
 
 class AcademicStatus(Enum):

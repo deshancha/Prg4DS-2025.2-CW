@@ -1,6 +1,6 @@
-from .person import Person
-from domain.model.other.academic_status import AcademicStatus
-from domain.manager.istudent_manager import IStudentManager
+from person import Person
+from model.academic_status import AcademicStatus
+from manager.istudent_manager import IStudentManager
 
 class Student(Person):
     def __init__(self, person_id, name, student_id, student_manager):

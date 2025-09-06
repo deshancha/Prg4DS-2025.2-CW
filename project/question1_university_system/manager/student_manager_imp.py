@@ -1,5 +1,4 @@
-from domain.manager.istudent_manager import IStudentManager
-from domain.model.other.academic_status import AcademicStatus
+from .istudent_manager import IStudentManager
 
 # This is a friend class for Student
 class StudentManagerImp(IStudentManager):

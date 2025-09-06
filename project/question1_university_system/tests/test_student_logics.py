@@ -6,11 +6,11 @@
 
 import unittest
 
-from domain.model.people.student import Student
-from domain.model.other.course import Course
-from domain.model.other.academic_status import AcademicStatus
-from domain.model.other.grade import Grade
-from data.manager.student_manager_imp import StudentManagerImp
+from student import Student
+from model.course import Course
+from model.academic_status import AcademicStatus
+from model.grade import Grade
+from manager.student_manager_imp import StudentManagerImp
 
 # Testing Student Enrollement
 class TestStudentEnrollment(unittest.TestCase):
