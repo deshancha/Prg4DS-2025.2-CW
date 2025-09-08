@@ -18,3 +18,12 @@ class CourseManagerImp(ICourseManager):
         # check maximum allowed reached
         if len(course.reading_students) >= course.max_students_allowd:
             raise ValueError(f"Course {course_code} reached maximum allowed limit[{course.max_students_allowd}]")
+        
+        course.reading_students.append(person_id)
+
+    # Remove Student frm course
+    def remove_student(self, course, person_id: str):
+        if person_id not in course.reading_students:
+            raise ValueError(f"Student {person_id} not assigned to corse:[{course.course_code}]")
+
+        course.reading_students.remove(person_id)

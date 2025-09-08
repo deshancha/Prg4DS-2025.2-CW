@@ -27,3 +27,6 @@ class Course:
 
     def add_student(self, person_id: str, completed_courses: List[str]):
         self._course_manager.add_student(self, person_id, completed_courses)
+
+    def remove_student(self, person_id: str):
+        self._course_manager.remove_student(self, person_id)

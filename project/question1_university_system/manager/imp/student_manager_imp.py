@@ -15,7 +15,6 @@ class StudentManagerImp(IStudentManager):
         # completed coursed of the student to validate prerequisites
         completed_courses = [result.course_code for result in student.course_results]
 
-        # TODO: add student to course here
         course.add_student(student.person_id, completed_courses)
 
         student.semester_courses[semester][course.course_code] = course
@@ -25,6 +24,10 @@ class StudentManagerImp(IStudentManager):
     def drop(self, student, semester, course_code):
         if semester not in student.semester_courses or course_code not in student.semester_courses[semester]:
             raise ValueError(f"{course_code}\t not found in {semester} courses for {student.name}")
+        
+        local_course = student.semester_courses[semester][course_code]
+
+        local_course.remove_student(student.person_id)
         
         del student.semester_courses[semester][course_code]
         Logger.info(f"{student.name} removed {course_code}\tfrom {semester}")

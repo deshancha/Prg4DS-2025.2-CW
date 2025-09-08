@@ -14,6 +14,6 @@ class ICourseManager(ABC):
     def add_student(self, course, person_id: str, completed_courses: List[str]):
         pass
 
-    # @abstractmethod
-    # def remove_student(self, course, person_id: str):
-    #     pass
+    @abstractmethod
+    def remove_student(self, course, person_id: str):
+        pass
