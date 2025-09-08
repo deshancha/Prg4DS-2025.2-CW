@@ -8,7 +8,7 @@
 from abc import ABC, abstractmethod
 from model.results import Results
 
-# Course class, for scalability + avoid unit test modification in future
+# Student Logic interface, to seperate student logics from Student model class
 class IStudentManager(ABC):
     @abstractmethod
     def enroll(self, student, semester, course):
