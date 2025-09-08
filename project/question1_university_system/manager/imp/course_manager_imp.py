@@ -26,6 +26,7 @@ class CourseManagerImp(ICourseManager):
             raise ValueError(f"Course {course_code} reached maximum allowed limit[{course.max_students_allowd}]")
         
         course.reading_students.append(person_id)
+        Logger.info(f"Student {person_id} \t assigned to {course_code}")
 
     # Remove Student frm course
     def remove_student(self, course, person_id: str):
@@ -33,6 +34,7 @@ class CourseManagerImp(ICourseManager):
             raise ValueError(f"Student {person_id} not assigned to corse:[{course.course_code}]")
 
         course.reading_students.remove(person_id)
+        Logger.info(f"Student {person_id} \t removed from {course.course_code}")
 
     # assign Faculty to Course
     def assign_faculty(self, course, faculty: Faculty):
@@ -40,3 +42,4 @@ class CourseManagerImp(ICourseManager):
             raise ValueError(f"Faculty {faculty.name} already assigned to {course.course_code}")
         
         course.assigned_faculty.append(faculty)
+        Logger.info(f"Faculty member {faculty.name} \t assigned to {course.course_code}")
