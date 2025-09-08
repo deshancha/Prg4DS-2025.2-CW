@@ -6,7 +6,7 @@
 
 import unittest
 
-from student import Student
+from student import UndergraduateStudent
 from model.course import Course
 from manager.imp.student_manager_imp import StudentManagerImp
 from secure_student_record import SecureStudentRecord
@@ -20,7 +20,7 @@ class TestSecureStudentRecord(unittest.TestCase):
 
     def setUp(self):
         self.semester = "SEM1"
-        self.student = Student(
+        self.student = UndergraduateStudent(
             person_id=1,
             name="Saman",
             student_id="2025CS01",
@@ -86,7 +86,7 @@ class TestSecureStudentRecord(unittest.TestCase):
             self.secure_student.gpa = None
 
     def test_change_student_ok(self):
-        new_student = Student(
+        new_student = UndergraduateStudent(
             person_id=2,
             name="Kamal",
             student_id="2025CS02",

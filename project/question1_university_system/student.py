@@ -44,16 +44,16 @@ class Student(Person):
     
 
 class UndergraduateStudent(Student):
-    def __init__(self, person_id, name, student_id):
-        super().__init__(person_id, name, student_id)
+    def __init__(self, person_id, name, student_id, student_manager):
+        super().__init__(person_id, name, student_id, student_manager)
 
     # override
     def get_responsibilities(self):
         return f"Responsibilities of UndergraduateStudent[{self.name}] goes here"
 
 class GraduateStudent(Student):
-    def __init__(self, person_id, name, student_id):
-        super().__init__(person_id, name, student_id)
+    def __init__(self, person_id, name, student_id, student_manager):
+        super().__init__(person_id, name, student_id, student_manager)
 
     # override
     def get_responsibilities(self):
