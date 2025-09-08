@@ -1,8 +1,7 @@
-from .istudent_manager import IStudentManager
+from ..istudent_manager import IStudentManager
 from model.results import Results
 from logger.logger import Logger
 
-# This is a friend class for Student
 class StudentManagerImp(IStudentManager):
 
     # Enroll Course

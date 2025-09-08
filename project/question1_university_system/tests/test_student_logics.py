@@ -11,15 +11,15 @@ from model.course import Course
 from model.academic_status import AcademicStatus
 from model.grade import Grade
 from model.results import Results
-from manager.student_manager_imp import StudentManagerImp
+from manager.imp.student_manager_imp import StudentManagerImp
+from manager.imp.course_manager_imp import CourseManagerImp
 
 # Testing Student Enrollement
 class TestStudentEnrollment(unittest.TestCase):
     def setUp(self):
         self.semester = "SEM_1"
-        self.manager = StudentManagerImp()
-        self.student = Student(1, "Studnet A", "2025CS01", self.manager)
-        self.course = Course("P4DSC", "Programming for Data Sciecne")
+        self.student = Student(1, "Studnet A", "2025CS01", StudentManagerImp())
+        self.course = Course("P4DSC", "Programming for Data Sciecne", course_manager = CourseManagerImp())
 
     def test_enroll_new_course_ok(self):
         self.student.enroll_course(self.semester, self.course)
@@ -43,7 +43,7 @@ class TestStudentDropCourse(unittest.TestCase):
         self.semester = "SEM_1"
         self.course_code = "P4DSC"
         self.student = Student(1, "student A", "2025CS01", StudentManagerImp())
-        self.course = Course(self.course_code, "Programming for Data Sciecne")
+        self.course = Course(self.course_code, "Programming for Data Sciecne", course_manager = CourseManagerImp())
         self.student.enroll_course(self.semester, self.course)
 
     def test_drop_existing_course_ok(self):
@@ -66,8 +66,8 @@ class TestCalculateGPA(unittest.TestCase):
         self.student = Student(1, "Saman", "2025CS01", StudentManagerImp())
         self.course1_grade = 4
         self.course2_grade = 5
-        self.course1 = Course("P4DSC", "Programming for Data Sciecne", self.course1_grade)
-        self.course2 = Course("DATA_VIS", "Data Visualization", self.course2_grade)
+        self.course1 = Course("P4DSC", "Programming for Data Sciecne", self.course1_grade, course_manager = CourseManagerImp())
+        self.course2 = Course("DATA_VIS", "Data Visualization", self.course2_grade, course_manager = CourseManagerImp())
 
     def test_calculate_gpa_with_grades_ok(self):
         # Enroll
@@ -108,7 +108,7 @@ class TestStudentAcademicStatus(unittest.TestCase):
         self.semester = "SEM_1"
         self.course_code = "P4DSC"
         self.student = Student(1, "Nimal", "2025CS01", StudentManagerImp())
-        self.course = Course(self.course_code, "Programming for Data Sciecne")
+        self.course = Course(self.course_code, "Programming for Data Sciecne", course_manager = CourseManagerImp())
 
     def test_academic_status_deans_list_ok(self):
         # Enrol Coause
@@ -146,8 +146,8 @@ class TestStudentSetResults(unittest.TestCase):
     def setUp(self):
         self.semester = "SEM_1"
         self.student = Student(1, "Saman", "2025CS01", StudentManagerImp())
-        self.course1 = Course("P4DSC", "Programming for Data Science")
-        self.course2 = Course("DATA_VIS", "Data Visualization")
+        self.course1 = Course("P4DSC", "Programming for Data Science", course_manager = CourseManagerImp())
+        self.course2 = Course("DATA_VIS",  "Data Visualization", course_manager = CourseManagerImp())
 
         # Enroll courses
         self.student.enroll_course(self.semester, self.course1)

@@ -1,0 +1,20 @@
+from ..icourse_manager import ICourseManager
+from logger.logger import Logger
+from typing import List
+
+
+class CourseManagerImp(ICourseManager):
+
+    # Assign Student to Course
+    def add_student(self, course, person_id: str, completed_courses: List[str]):
+        course_code = course.course_code
+
+        # check meets the prerequsites
+        if course.should_have_completed is not None:
+            for required in course.should_have_completed:
+                if required not in completed_courses:
+                    raise ValueError(f"Cannot enroll:{person_id} prerequisite {required} not completed for {course_code}")
+        
+        # check maximum allowed reached
+        if len(course.reading_students) >= course.max_students_allowd:
+            raise ValueError(f"Course {course_code} reached maximum allowed limit[{course.max_students_allowd}]")

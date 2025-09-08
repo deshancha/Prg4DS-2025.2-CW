@@ -8,11 +8,12 @@ import unittest
 
 from student import Student
 from model.course import Course
-from manager.student_manager_imp import StudentManagerImp
+from manager.imp.student_manager_imp import StudentManagerImp
 from secure_student_record import SecureStudentRecord
 from secure_student_record import ConstVals 
 from model.results import Results
 from model.grade import Grade
+from manager.imp.course_manager_imp import CourseManagerImp
 
 # Testing Student
 class TestSecureStudentRecord(unittest.TestCase):
@@ -27,10 +28,12 @@ class TestSecureStudentRecord(unittest.TestCase):
         )
         self.secure_student = SecureStudentRecord(self.student)
 
-        self.course1 = Course("P4DSc", "Programming for Data Science")
-        self.course2 = Course("DVIZ", "Data Visualization")
-        self.course3 = Course("AALGO", "Advanced Algorithms")
-        self.course4 = Course("NL", "Neural Networks")
+        self.course_manager = CourseManagerImp()
+
+        self.course1 = Course("P4DSc", "Programming for Data Science", course_manager= self.course_manager)
+        self.course2 = Course("DVIZ", "Data Visualization", course_manager= self.course_manager)
+        self.course3 = Course("AALGO", "Advanced Algorithms", course_manager= self.course_manager)
+        self.course4 = Course("NL", "Neural Networks", course_manager= self.course_manager)
 
     def test_enroll_ok(self):
         for course in [self.course1, self.course2, self.course3]:
@@ -41,7 +44,7 @@ class TestSecureStudentRecord(unittest.TestCase):
 
     def test_enroll_course_max_reached_and_throw_error_ok(self):
         for i in range(ConstVals.MAX_COURSES_PER_SEMESTER):
-            self.secure_student.enroll_course(self.semester, Course(f"C{i}", f"Course {i}"))
+            self.secure_student.enroll_course(self.semester, Course(f"C{i}", f"Course {i}", course_manager = self.course_manager))
 
         self.assertRaises(
             ValueError,

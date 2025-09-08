@@ -8,6 +8,7 @@
 from abc import ABC, abstractmethod
 from model.results import Results
 
+# Course class, for scalability + avoid unit test modification in future
 class IStudentManager(ABC):
     @abstractmethod
     def enroll(self, student, semester, course):
