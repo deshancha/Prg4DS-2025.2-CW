@@ -3,7 +3,7 @@ import os
 class Logger:
     
     PREFIX = "LOG"
-    enabled = os.environ.get("LOG_ENABLED", "1") == "1"
+    enabled = os.environ.get("LOG_ENABLED", "0") == "1"
 
     @staticmethod
     def info(message: str):
