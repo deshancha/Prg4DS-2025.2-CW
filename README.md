@@ -6,9 +6,8 @@ Programming for DS : 2025.2 CW
 This project demonstrates an **Enhanced Object-Oriented Design** that follows **Clean Architecture** principles.
 
 ### ✅ Features
-- Separation of **Domain** and **Data** layers  
-- **Presentation Layer** covered with unit tests  
-- Extensible design using interfaces and implementations (eg: StudentManagerImp)
+- Extensible design using interfaces and implementations (eg: StudentManagerImp, CourseManagerImp)
+- models, log manager
 
 ---
 
@@ -40,24 +39,81 @@ Q1-EnhancedOOP:
     - test_student.py
 ```
 
-## ▶️ Running Unit Tests
+## Running Unit Tests
 
-This would execute student related logics and classes intializations
+This will execute all university system unit tests.
 
-From the project root:
+▶️  From the project root:
 
 ```bash
-cd Q1-EnhancedOOP
+cd project/question1_university_system
 PYTHONPATH=src python -m unittest discover -s tests
 ```
 
-## ▶️ Running SecureStudentRecord
+Enabling Logs
 
-SecureStudentRecord has main method.
-
-From the project root:
+By default, logs are disabled.
+If you want to see logs during test execution, set the LOG_ENABLED environment variable:
 
 ```bash
-cd Q1-EnhancedOOP
-python src/SecureStudentRecord.py
+PYTHONPATH=src LOG_ENABLED=1 python -m unittest discover -s tests
+```
+
+### 1. Student Logic Tests
+
+The `tests/test_student_logics.py` has following test classes:
+
+- `TestStudentEnrollment`
+- `TestStudentDropCourse`
+- `TestCalculateGPA`
+- `TestStudentAcademicStatus`
+
+#### ▶️ Student Tests
+```bash
+PYTHONPATH=src LOG_ENABLED=1 python -m unittest tests.test_student_logics
+```
+
+### 2. Course Logic Tests
+
+The `tests/test_course_logics.py` has following test classes:
+
+- `TestCourseAddRemoveStudent`
+
+#### ▶️ Course Tests
+```bash
+PYTHONPATH=src LOG_ENABLED=1 python -m unittest tests.test_course_logics
+```
+
+### 3. Faculty Logic Tests
+
+The `tests/test_faculty_logics.py` has following test classes:
+
+- `TestFacultyCouseAssignement`
+
+#### ▶️ Faculty Tests
+```bash
+PYTHONPATH=src LOG_ENABLED=1 python -m unittest tests.test_faculty_logics
+```
+
+### 4. Secure Strudent Record Tests
+
+The `tests/test_secure_student_record.py` has following test classes:
+
+- `TestSecureStudentRecord`
+
+#### ▶️ Secure Strudent Record Tests
+```bash
+PYTHONPATH=src LOG_ENABLED=1 python -m unittest tests.test_secure_student_record
+```
+
+### 5. Person Tests
+
+The `tests/test_person.py` has following test classes:
+
+- `TestStudent`
+- `TestFaculty`
+
+#### ▶️ Person Tests
+```bash
+PYTHONPATH=src LOG_ENABLED=1 python -m unittest tests.test_person
 ```
