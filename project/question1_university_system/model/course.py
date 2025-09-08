@@ -4,9 +4,8 @@
 # Date: 2025-09-06
 # =======================================================
 
-
-from .grade import Grade
-from typing import List, Optional
+from typing import List
+from faculty import Faculty
 from manager.icourse_manager import ICourseManager
 
 # Course class, for scalability + avoid unit test modification in future
@@ -31,3 +30,6 @@ class Course:
 
     def remove_student(self, person_id: str):
         self._course_manager.remove_student(self, person_id)
+
+    def add_faculty(self, faculty: Faculty):
+        self._course_manager.assign_faculty(self, faculty)

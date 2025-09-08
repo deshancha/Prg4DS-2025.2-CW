@@ -25,8 +25,8 @@ class TestFacultyCouseAssignement(unittest.TestCase):
         prof = Professor("PFOF_1", "Prof. Sarath", "CS", "Linear Algebra")
         ta = TA(10, "TA A", "CS", prof)
 
-        self.course.assigned_faculty.append(prof)
-        self.course.assigned_faculty.append(ta)
+        self.course.add_faculty(prof)
+        self.course.add_faculty(ta)
 
         self.assertIn(prof, self.course.assigned_faculty)
         self.assertIn(ta, self.course.assigned_faculty)
