@@ -1,16 +1,12 @@
 # =======================================================
-# File: test_faculty.py
+# File: test_course_logics.py
 # Created by: CD
 # Date: 2025-09-03
 # =======================================================
 
 import unittest
 
-from student import Student
 from model.course import Course
-from model.grade import Grade
-from model.results import Results
-from manager.imp.student_manager_imp import StudentManagerImp
 from manager.imp.course_manager_imp import CourseManagerImp
 
 class TestCourseAddRemoveStudent(unittest.TestCase):

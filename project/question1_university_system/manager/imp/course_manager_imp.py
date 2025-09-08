@@ -1,3 +1,9 @@
+# =======================================================
+# File: course_manager_imp.py
+# Created by: CD
+# Date: 2025-09-08
+# =======================================================
+
 from ..icourse_manager import ICourseManager
 from logger.logger import Logger
 from typing import List

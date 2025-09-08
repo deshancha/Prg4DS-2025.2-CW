@@ -1,8 +1,7 @@
-
 # =======================================================
-# File: istudent_manager.py
+# File: icourse_manager.py
 # Created by: CD
-# Date: 2025-09-03
+# Date: 2025-09-08
 # =======================================================
 
 from abc import ABC, abstractmethod
