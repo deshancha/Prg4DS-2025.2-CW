@@ -1,7 +1,7 @@
 from ..icourse_manager import ICourseManager
 from logger.logger import Logger
 from typing import List
-
+from faculty import Faculty
 
 class CourseManagerImp(ICourseManager):
 
@@ -27,3 +27,10 @@ class CourseManagerImp(ICourseManager):
             raise ValueError(f"Student {person_id} not assigned to corse:[{course.course_code}]")
 
         course.reading_students.remove(person_id)
+
+    # assign Faculty to Course
+    def assign_faculty(self, course, faculty: Faculty):
+        if faculty in course.assigned_faculty:
+            raise ValueError(f"Faculty {faculty.name} already assigned to {course.course_code}")
+        
+        course.assigned_faculty.append(faculty)

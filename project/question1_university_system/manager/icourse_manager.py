@@ -7,6 +7,7 @@
 
 from abc import ABC, abstractmethod
 from typing import List
+from faculty import Faculty
 
 # Course Logic interface, to seperate student logics from Student model class
 class ICourseManager(ABC):
@@ -16,4 +17,8 @@ class ICourseManager(ABC):
 
     @abstractmethod
     def remove_student(self, course, person_id: str):
+        pass
+
+    @abstractmethod
+    def assign_faculty(self, course, faculty: Faculty):
         pass

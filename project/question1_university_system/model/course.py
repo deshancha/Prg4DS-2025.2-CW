@@ -24,6 +24,7 @@ class Course:
         self.reading_students: List[str] = []
         self.should_have_completed = should_have_completed
         self._course_manager: ICourseManager | None = course_manager
+        self.assigned_faculty: List[str] = []
 
     def add_student(self, person_id: str, completed_courses: List[str]):
         self._course_manager.add_student(self, person_id, completed_courses)
