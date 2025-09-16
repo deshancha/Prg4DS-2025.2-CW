@@ -10,3 +10,10 @@ class WebScrapeImp(IWebScarape):
         soup = BS(htmlText, 'html.parser')
         elements = soup.select(selector)
         return [elementMapper(elm) for elm in elements]
+    
+    def getFromHtmlSingle(self, htmlText: str, selector: str, elementMapper: Callable[[BS], T]) -> T | None:
+        soup = BS(htmlText, 'html.parser')
+        element = soup.select_one(selector)
+        if element:
+            return elementMapper(element)
+        return None

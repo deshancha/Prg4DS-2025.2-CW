@@ -12,3 +12,9 @@ class IWebScarape(ABC):
         elementMapper: Callable[[BS, str], T]
     ) -> List[T]:
         pass
+
+    def getFromHtmlSingle(
+        htmlText: str,
+        selector: str,
+        elementMapper: Callable[[BS], T]) -> T | None:
+        pass
