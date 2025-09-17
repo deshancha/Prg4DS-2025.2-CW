@@ -22,10 +22,17 @@ class HttpClientImp(IHttpClient):
         attempt = 0
         while attempt < self.maxRetries:
             try:
-                return await self._request(url)
+                response = await self._request(url)
+
+                if(attempt>0):
+                    print(f"Success After failured, Attempt: {attempt}/{self.maxRetries}, url:{url}")
+
+                return response
             except Exception as e:
                 attempt += 1
                 slepTime = min(self.backOff * (2 ** (attempt - 1)), 2.0)
                 print(f"Request Failed!, Attempt: {attempt}/{self.maxRetries} after {slepTime} secs")
                 await asyncio.sleep(slepTime)
+
+        print(f"Permanent Failure, url:{url}")
         return ApiResponse(status_code=-1, body=f"Failed with max retry: {self.maxRetries}")

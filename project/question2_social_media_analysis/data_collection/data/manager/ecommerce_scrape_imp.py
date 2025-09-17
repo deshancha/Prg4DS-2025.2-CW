@@ -1,0 +1,89 @@
+import asyncio
+import random
+from typing import List
+from itertools import chain
+
+from bs4 import BeautifulSoup as BS
+from domain.manager.ihhtp_client import IHttpClient
+from domain.manager.iweb_scarpe import IWebScarape
+from domain.manager.ibook_scrape import IBookScrape
+from domain.components.app_const import AppConst
+from domain.model.api_response import ApiResponse
+from domain.model.product_detail import ProductDetail
+from domain.model.product_meta import ProductMeta
+
+SCRAPE_HOST = "https://scrapeme.live/shop"
+PAGE_URL_TEMPLATE = SCRAPE_HOST + "/page/{}/"
+
+def responseOk(response: ApiResponse):
+    return response.status_code == AppConst.HTTP_OK
+
+# callback param calls from scraper, this would parse product Meta html
+def _mapProductMeta(element: BS) -> ProductMeta:
+    aTag = element.select_one("a.woocommerce-LoopProduct-link")
+    titleTag = element.select_one("h2.woocommerce-loop-product__title")
+    href = aTag["href"] if aTag else ""
+    title = titleTag.text.strip() if titleTag else ""
+    return ProductMeta(title=title, url=href)
+
+# callback param calls from scraper, this would parse product Details html
+def _mapProduct(element: BS) -> ProductDetail:
+    titleTag = element.select_one("h1.product_title")
+    priceTag = element.select_one("p.price")
+    title = titleTag.text.strip() if titleTag else ""
+    price = priceTag.text.strip() if priceTag else ""
+    return ProductDetail(title=title, price=price)
+
+# ECommerce Scraping Implementation
+class ECommerceScrapeImp(IBookScrape):
+    def __init__(self, scraper: IWebScarape, client: IHttpClient,):
+        self.scraper = scraper
+        self.client = client
+
+    # This would fetach Product Meta from page (page have multiple items details)
+    async def _fetchPage(self, pageNumber: int):
+        pageUrl = PAGE_URL_TEMPLATE.format(pageNumber)
+        response = await self.client.get(pageUrl)
+
+        if not responseOk(response):
+            return []
+
+        # <ul class="products ..."> <li class="product ..."
+        productMetaList = self.scraper.getFromHtml(response.body, "ul.products li.product", _mapProductMeta)
+
+        for meta in productMetaList:
+            print(meta.url)
+
+        productScrapeTasks = []
+        for productMeta in productMetaList:
+            productScrapeTasks.append(asyncio.create_task(self._fetchProduct(bookMeta=productMeta)))
+
+        bokResults = await asyncio.gather(*productScrapeTasks)
+
+        # flattening
+        validProducts = list(filter(lambda b: b is not None, bokResults))
+
+        return validProducts
+    
+    # This would fetach individual product Details
+    async def _fetchProduct(self, bookMeta: ProductMeta) -> ProductDetail | None:
+        response = await self.client.get(bookMeta.url)
+
+        if not responseOk(response):
+            return None
+        
+        # <div id="primary" class="content-area">
+        productDetail = self.scraper.getFromHtmlSingle(response.body, "div.content-area", _mapProduct)
+        await asyncio.sleep(random.uniform(0.1, 0.4))
+        return productDetail
+
+    async def collectData(self, pageCount: int) -> List[ProductDetail]:
+        pageScrapeTasks = []
+        for i in range(1, pageCount + 1):
+            pageScrapeTasks.append(asyncio.create_task(self._fetchPage(i)))
+
+        pagesResults = await asyncio.gather(*pageScrapeTasks)
+
+        allBooks = list(chain.from_iterable(pagesResults))
+        
+        return allBooks

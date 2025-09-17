@@ -5,6 +5,8 @@ from domain.manager.iweb_scarpe import IWebScarape
 from data.manager.web_scape_imp import WebScrapeImp
 from data.manager.book_scrape_imp import BookScrapeImp
 from domain.manager.ibook_scrape import IBookScrape
+from domain.manager.iecommerce_scrape import IECommerceScrape
+from data.manager.ecommerce_scrape_imp import ECommerceScrapeImp
 from domain.usecases.collect_data_usecases import CollectDataUseCases
 
 class Container(containers.DeclarativeContainer):
@@ -25,7 +27,14 @@ class Container(containers.DeclarativeContainer):
         scraper=webScraper
     )
 
+    ecommerceScraper: providers.Provider[IECommerceScrape] = providers.Factory(
+        ECommerceScrapeImp,
+        client=httpClient,
+        scraper=webScraper
+    )
+
     useCases = providers.Factory(
         CollectDataUseCases,
-        iBookScrape=bookScraper
+        iBookScrape=bookScraper,
+        iEcommerceScrape=ecommerceScraper
     )
