@@ -1,19 +1,15 @@
 import asyncio
-from data.manager.http_client_imp import HttpClientImp
-from domain.manager.ihhtp_client import IHttpClient
-from domain.manager.iweb_scarpe import IWebScarape
-from data.manager.web_scape_imp import WebScrapeImp
-from domain.usecases.collect_data_usecases import CollectDataUseCases
-
-from data.manager.book_scrape_imp import BookScrapeImp
-
 from di.container import Container
+from domain.model.book_detail import BookDetail
 
 async def collect_data(fetchCount=1):
     container = Container()
     useCases = container.useCases()
 
     booksList = await useCases.booksScrape(pageCount=fetchCount)
+
+    for book in booksList:
+        print(f"Title: {book.title}, Price: {book.price}\n======\n")
 
     print(f"Total: {len(booksList)}")
     
