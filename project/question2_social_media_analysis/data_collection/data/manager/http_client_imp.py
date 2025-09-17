@@ -10,7 +10,7 @@ class HttpClientImp(IHttpClient):
         self.backOff = 0.2
 
     async def get(self, url: str) -> ApiResponse:
-        return await self._retry_async("url")
+        return await self._retry_async(url)
         
     async def _request(self, url: str) -> ApiResponse:
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=self.timeout)) as session:
