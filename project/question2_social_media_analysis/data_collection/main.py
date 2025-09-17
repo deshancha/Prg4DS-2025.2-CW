@@ -7,12 +7,11 @@ from domain.usecases.collect_data_usecases import CollectDataUseCases
 
 from data.manager.book_scrape_imp import BookScrapeImp
 
-async def collect_data(fetchCount=1):
-    client: IHttpClient = HttpClientImp(timeout=5)
-    scraper: IWebScarape = WebScrapeImp()
+from di.container import Container
 
-    useCases = CollectDataUseCases(
-        iBookScrape = BookScrapeImp(client=client, scraper=scraper))
+async def collect_data(fetchCount=1):
+    container = Container()
+    useCases = container.useCases()
 
     booksList = await useCases.booksScrape(pageCount=fetchCount)
 
