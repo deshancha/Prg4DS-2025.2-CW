@@ -90,7 +90,7 @@ class BookScrapeImp(IBookScrape):
     # This would fetach Book Meta from page (page have multiple books etails)
     async def _fetchPage(self, pageNumber: int):
         pageUrl = PAGE_URL_TEMPLATE.format(pageNumber)
-        await asyncio.sleep(random.uniform(0.5, 2.0))
+        await asyncio.sleep(random.uniform(1.5, 8.8))
         response = await self.client.get(pageUrl)
 
         if not responseOk(response):
@@ -112,7 +112,7 @@ class BookScrapeImp(IBookScrape):
     
     # This would fetach individual Book Details
     async def _fetchBook(self, bookMeta: BookMeta) -> BookDetail | None:
-        await asyncio.sleep(random.uniform(0.1, 0.5))
+        await asyncio.sleep(random.uniform(2.1, 5.6))
         bookUrl = BOOK_URL_TEMPLATE.format(bookMeta.url)
         response = await self.client.get(bookUrl)
 
