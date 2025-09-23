@@ -29,10 +29,35 @@ def _mapProductMeta(element: BS) -> ProductMeta:
 # callback param calls from scraper, this would parse product Details html
 def _mapProduct(element: BS) -> ProductDetail:
     titleTag = element.select_one("h1.product_title")
-    priceTag = element.select_one("p.price")
     title = titleTag.text.strip() if titleTag else ""
+
+    priceTag = element.select_one("p.price")
     price = priceTag.text.strip() if priceTag else ""
-    return ProductDetail(title=title, price=price)
+
+    descTag = element.select_one("div.woocommerce-product-details__short-description p")
+    description = descTag.text.strip() if descTag else ""
+
+    stockTag = element.select_one("p.stock")
+    stock = stockTag.text.strip() if stockTag else ""
+
+    skuTag = element.select_one("span.sku")
+    sku = skuTag.text.strip() if skuTag else ""
+
+    categoryTags = element.select("span.posted_in a")
+    categories = [cat.text.strip() for cat in categoryTags] if categoryTags else []
+
+    tagTags = element.select("span.tagged_as a")
+    tags = [t.text.strip() for t in tagTags] if tagTags else []
+
+    return ProductDetail(
+        title=title,
+        price=price,
+        description=description,
+        stock=stock,
+        sku=sku,
+        categories=categories,
+        tags=tags
+    )
 
 # ECommerce Scraping Implementation
 class ECommerceScrapeImp(IBookScrape):
@@ -43,6 +68,9 @@ class ECommerceScrapeImp(IBookScrape):
     # This would fetach Product Meta from page (page have multiple items details)
     async def _fetchPage(self, pageNumber: int):
         pageUrl = PAGE_URL_TEMPLATE.format(pageNumber)
+
+        await asyncio.sleep(random.uniform(1.0, 3.0))
+        
         response = await self.client.get(pageUrl)
 
         if not responseOk(response):
@@ -64,6 +92,7 @@ class ECommerceScrapeImp(IBookScrape):
     
     # This would fetach individual product Details
     async def _fetchProduct(self, bookMeta: ProductMeta) -> ProductDetail | None:
+        await asyncio.sleep(random.uniform(0.2, 1.0))
         response = await self.client.get(bookMeta.url)
 
         if not responseOk(response):
@@ -71,7 +100,7 @@ class ECommerceScrapeImp(IBookScrape):
         
         # <div id="primary" class="content-area">
         productDetail = self.scraper.getFromHtmlSingle(response.body, "div.content-area", _mapProduct)
-        await asyncio.sleep(random.uniform(0.1, 0.4))
+        
         return productDetail
 
     async def collectData(self, pageCount: int) -> List[ProductDetail]:

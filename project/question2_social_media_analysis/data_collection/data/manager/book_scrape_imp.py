@@ -90,6 +90,7 @@ class BookScrapeImp(IBookScrape):
     # This would fetach Book Meta from page (page have multiple books etails)
     async def _fetchPage(self, pageNumber: int):
         pageUrl = PAGE_URL_TEMPLATE.format(pageNumber)
+        await asyncio.sleep(random.uniform(0.5, 2.0))
         response = await self.client.get(pageUrl)
 
         if not responseOk(response):
@@ -107,12 +108,11 @@ class BookScrapeImp(IBookScrape):
         # flattening
         validBooks = list(filter(lambda b: b is not None, bokResults))
 
-        await asyncio.sleep(random.uniform(0.5, 2.0))
-
         return validBooks
     
     # This would fetach individual Book Details
     async def _fetchBook(self, bookMeta: BookMeta) -> BookDetail | None:
+        await asyncio.sleep(random.uniform(0.1, 0.5))
         bookUrl = BOOK_URL_TEMPLATE.format(bookMeta.url)
         response = await self.client.get(bookUrl)
 
@@ -120,7 +120,7 @@ class BookScrapeImp(IBookScrape):
             return None
         
         bookDetail = self.scraper.getFromHtmlSingle(response.body, "article.product_page", _mapBook)
-        await asyncio.sleep(random.uniform(0.1, 0.5))
+        
         return bookDetail
 
     async def collectData(self, pageCount: int) -> List[BookDetail]:

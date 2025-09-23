@@ -1,6 +1,8 @@
+import os
 from dependency_injector import containers, providers
 from domain.manager.ihhtp_client import IHttpClient
 from data.manager.http_client_imp import HttpClientImp
+from data.manager.http_client_sync_imp import HttpClientSyncImp
 from domain.manager.iweb_scarpe import IWebScarape
 from data.manager.web_scape_imp import WebScrapeImp
 from data.manager.book_scrape_imp import BookScrapeImp
@@ -18,8 +20,10 @@ from domain.usecases.save_data_usecases import SaveDataUseCases
 class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
 
+    use_async = os.environ.get("ASYNC", "1") == "1"
+
     httpClient: providers.Provider[IHttpClient] = providers.Singleton(
-        HttpClientImp,
+        HttpClientImp if use_async else HttpClientSyncImp,
         timeout=3
     )
 

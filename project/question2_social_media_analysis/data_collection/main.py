@@ -68,6 +68,7 @@ if __name__ == "__main__":
     os.makedirs("files", exist_ok=True)
     # one after another
     # asyncio.run(collect_Books(BOOKS_FILE, fetchCount=50))
-    # asyncio.run(collect_products(PRODUCTS_FILE, fetchCount=5))
-    asyncio.run(collect_rss(NEWS_FILE))
+    asyncio.run(collect_products(PRODUCTS_FILE, fetchCount=50))
+    # asyncio.run(collect_rss(NEWS_FILE))
 
+# PRODUCTS_FILE, fetched 580 time:2132.04 seconds
