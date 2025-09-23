@@ -5,7 +5,7 @@ from di.container import Container
 from domain.usecases.collect_data_usecases import CollectDataUseCases
 from util.docorators import measure_time
 
-DATA_LOC = "files"
+DATA_LOC = "raw_files"
 BOOKS_FILE = DATA_LOC + "/books.json"
 PRODUCTS_FILE = DATA_LOC + "/products.json"
 NEWS_FILE = DATA_LOC + "/news_rss.json"
