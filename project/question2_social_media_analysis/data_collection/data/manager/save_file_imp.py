@@ -9,5 +9,7 @@ class SaveFileImp(ISaveFile):
         serializable = [
             asdict(item) if not isinstance(item, dict) else item for item in data
         ]
-        async with aiofiles.open(filename, "w") as f:
-            await f.write(json.dumps(serializable, indent=4))
+
+        # unicode escaping is need to save readable : eg : "price": "£51.77" vs "price": "\u00a351.77",
+        async with aiofiles.open(filename, "w", encoding="utf-8") as f:
+            await f.write(json.dumps(serializable, ensure_ascii=False, indent=4))
