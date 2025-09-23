@@ -7,7 +7,11 @@ from data.manager.book_scrape_imp import BookScrapeImp
 from domain.manager.ibook_scrape import IBookScrape
 from domain.manager.iecommerce_scrape import IECommerceScrape
 from data.manager.ecommerce_scrape_imp import ECommerceScrapeImp
+from domain.manager.isave_file import ISaveFile
+from data.manager.save_file_imp import SaveFileImp
 from domain.usecases.collect_data_usecases import CollectDataUseCases
+from domain.usecases.save_data_usecases import SaveDataUseCases
+
 
 class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
@@ -15,6 +19,10 @@ class Container(containers.DeclarativeContainer):
     httpClient: providers.Provider[IHttpClient] = providers.Singleton(
         HttpClientImp,
         timeout=3
+    )
+
+    save_data: providers.Provider[ISaveFile] = providers.Singleton(
+        SaveFileImp
     )
 
     webScraper: providers.Provider[IWebScarape] = providers.Singleton(
@@ -33,8 +41,13 @@ class Container(containers.DeclarativeContainer):
         scraper=webScraper
     )
 
-    useCases = providers.Factory(
+    collect_data_useCases = providers.Factory(
         CollectDataUseCases,
         iBookScrape=bookScraper,
         iEcommerceScrape=ecommerceScraper
+    )
+
+    save_data_useCases = providers.Factory(
+        SaveDataUseCases,
+        isaveFile=save_data
     )

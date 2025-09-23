@@ -2,6 +2,7 @@ import asyncio
 import random
 from typing import List
 from itertools import chain
+import re
 
 from bs4 import BeautifulSoup as BS
 from domain.manager.ihhtp_client import IHttpClient
@@ -34,9 +35,50 @@ def _mapBook(element: BS) -> BookDetail:
 
     priceTag = element.select_one("p.price_color")
     price = priceTag.text.strip() if priceTag else ""
+
+    availability_text = element.select_one("p.instock.availability").get_text(strip=True)
+    available = "In stock" in availability_text
+    stock_count = 0
+    
+    match = re.search(r"\((\d+)\s+available\)", availability_text)
+    if match:
+        stock_count = int(match.group(1))
+
+    rating_tag = element.select_one("p.star-rating")
+    rating = ""
+    if rating_tag and rating_tag.get("class"):
+        for c in rating_tag["class"]:
+            if c != "star-rating":
+                rating = c
+                break
+
+    desc_tag = element.select_one("#product_description ~ p")
+    description = desc_tag.get_text(strip=True) if desc_tag else ""
+
+    def get_table_value(label: str) -> str:
+        row = element.select_one(f"table.table tr:has(th:-soup-contains('{label}')) td")
+        return row.get_text(strip=True) if row else ""
+    
+    upc = get_table_value("UPC")
+    product_type = get_table_value("Product Type")
+    price_excl_tax = get_table_value("Price (excl. tax)")
+    price_incl_tax = get_table_value("Price (incl. tax)")
+    tax = get_table_value("Tax")
+    num_reviews = int(get_table_value("Number of reviews") or 0)
+
     return BookDetail(
         title=title,
-        price=price
+        price=price,
+        available=available,
+        stock_count=stock_count,
+        rating=rating,
+        description=description,
+        upc=upc,
+        product_type=product_type,
+        price_excl_tax=price_excl_tax,
+        price_incl_tax=price_incl_tax,
+        tax=tax,
+        num_reviews=num_reviews
     )
 
 # Book Scraping Implementation
@@ -65,6 +107,8 @@ class BookScrapeImp(IBookScrape):
         # flattening
         validBooks = list(filter(lambda b: b is not None, bokResults))
 
+        await asyncio.sleep(random.uniform(0.5, 2.0))
+
         return validBooks
     
     # This would fetach individual Book Details
@@ -76,7 +120,7 @@ class BookScrapeImp(IBookScrape):
             return None
         
         bookDetail = self.scraper.getFromHtmlSingle(response.body, "article.product_page", _mapBook)
-        await asyncio.sleep(random.uniform(0.1, 0.4))
+        await asyncio.sleep(random.uniform(0.1, 0.5))
         return bookDetail
 
     async def collectData(self, pageCount: int) -> List[BookDetail]:

@@ -1,6 +1,12 @@
 # Prg4DS-2025.2-CW
 Programming for DS : 2025.2 CW
 
+## Dependecies
+```bash
+cd project
+pip install -r requirements.txt
+```
+
 ## 📌 Question 1 – Enhanced OOP
 
 This project demonstrates an **Enhanced Object-Oriented Design** that follows **Clean Architecture** principles.
