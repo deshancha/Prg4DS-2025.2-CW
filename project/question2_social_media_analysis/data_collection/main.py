@@ -71,4 +71,6 @@ if __name__ == "__main__":
     asyncio.run(collect_products(PRODUCTS_FILE, fetchCount=50))
     # asyncio.run(collect_rss(NEWS_FILE))
 
-# PRODUCTS_FILE, fetched 580 time:2132.04 seconds
+# PRODUCTS_FILE, SYNC, fetched 580 time:2132.04 seconds
+# BOOKS_FILE, ASYNC, fetched 1000 time:16.53 seconds
+# BOOKS_FILE, SYNC, fetched 1000 time:1863.47 seconds
