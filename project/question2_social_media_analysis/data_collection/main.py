@@ -8,6 +8,7 @@ from util.docorators import measure_time
 DATA_LOC = "files"
 BOOKS_FILE = DATA_LOC + "/books.json"
 PRODUCTS_FILE = DATA_LOC + "/products.json"
+NEWS_FILE = DATA_LOC + "/news_rss.json"
 
 # Dependancy Injection Container
 container = Container()
@@ -19,6 +20,10 @@ async def booksScrape(collect_data_useCases:  CollectDataUseCases, pageCount: in
 @measure_time
 async def eCommerceScrape(collect_data_useCases:  CollectDataUseCases, pageCount: int):
     return await collect_data_useCases.eCommerceScrape(pageCount)
+
+@measure_time
+async def rssScrape(collect_data_useCases:  CollectDataUseCases):
+    return await collect_data_useCases.rssScrape()
 
 """ collect and save books"""
 async def collect_Books(fileName: str, fetchCount=1):
@@ -47,10 +52,22 @@ async def collect_products(fileName: str, fetchCount=1):
     print(f"Total Products: {len(productList)}")
 
     await save_data_useCases.saveJson(productList, fileName)
+
+""" collect and save rss feeds from news site"""
+async def collect_rss(fileName: str):
+    collect_data_useCases = container.collect_data_useCases()
+    save_data_useCases = container.save_data_useCases()
+
+    newsList = await rssScrape(collect_data_useCases)
+
+    print(f"Total News Items: {len(newsList)}")
+
+    await save_data_useCases.saveJson(newsList, fileName)
     
 if __name__ == "__main__":
     os.makedirs("files", exist_ok=True)
     # one after another
     # asyncio.run(collect_Books(BOOKS_FILE, fetchCount=50))
-    asyncio.run(collect_products(PRODUCTS_FILE, fetchCount=5))
+    # asyncio.run(collect_products(PRODUCTS_FILE, fetchCount=5))
+    asyncio.run(collect_rss(NEWS_FILE))
 

@@ -17,3 +17,11 @@ class WebScrapeImp(IWebScarape):
         if element:
             return elementMapper(element)
         return None
+    
+    def getFromXml(self,
+                    xmlContent:str,
+                    selector: str,
+                    elementMapper: Callable[[BS, str], T]) -> List[T]:
+        soup = BS(xmlContent, 'lxml-xml')
+        elements = soup.find_all(selector)
+        return [elementMapper(elm) for elm in elements]

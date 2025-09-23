@@ -7,6 +7,8 @@ from data.manager.book_scrape_imp import BookScrapeImp
 from domain.manager.ibook_scrape import IBookScrape
 from domain.manager.iecommerce_scrape import IECommerceScrape
 from data.manager.ecommerce_scrape_imp import ECommerceScrapeImp
+from domain.manager.irss_xml_scrape import IRSSXMLScrape
+from data.manager.rss_xml_scrape_imp import RSSXMLScareImp
 from domain.manager.isave_file import ISaveFile
 from data.manager.save_file_imp import SaveFileImp
 from domain.usecases.collect_data_usecases import CollectDataUseCases
@@ -41,10 +43,17 @@ class Container(containers.DeclarativeContainer):
         scraper=webScraper
     )
 
+    rssScraper: providers.Provider[IRSSXMLScrape] = providers.Factory(
+        RSSXMLScareImp,
+        client=httpClient,
+        scraper=webScraper
+    )
+
     collect_data_useCases = providers.Factory(
         CollectDataUseCases,
         iBookScrape=bookScraper,
-        iEcommerceScrape=ecommerceScraper
+        iEcommerceScrape=ecommerceScraper,
+        irssScrape=rssScraper
     )
 
     save_data_useCases = providers.Factory(

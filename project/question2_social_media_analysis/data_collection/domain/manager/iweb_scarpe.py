@@ -18,3 +18,9 @@ class IWebScarape(ABC):
         selector: str,
         elementMapper: Callable[[BS], T]) -> T | None:
         pass
+
+    def getFromXml(self,
+                    xmlContent:str,
+                    selector: str,
+                    elementMapper: Callable[[BS, str], T]) -> List[T]:
+        pass
