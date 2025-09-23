@@ -51,9 +51,6 @@ class ECommerceScrapeImp(IBookScrape):
         # <ul class="products ..."> <li class="product ..."
         productMetaList = self.scraper.getFromHtml(response.body, "ul.products li.product", _mapProductMeta)
 
-        for meta in productMetaList:
-            print(meta.url)
-
         productScrapeTasks = []
         for productMeta in productMetaList:
             productScrapeTasks.append(asyncio.create_task(self._fetchProduct(bookMeta=productMeta)))

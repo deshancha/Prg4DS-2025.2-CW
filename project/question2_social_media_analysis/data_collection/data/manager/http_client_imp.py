@@ -2,7 +2,7 @@ import aiohttp
 import asyncio
 from domain.manager.ihhtp_client import IHttpClient
 from domain.model.api_response import ApiResponse
-from logger.logger import Logger
+from util.logger import Logger
 
 class HttpClientImp(IHttpClient):
     def __init__(self, timeout = 3, maxRetry = 3):

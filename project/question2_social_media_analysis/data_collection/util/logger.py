@@ -31,5 +31,5 @@ class Logger:
     @staticmethod
     def verbose(message: str):
         if Logger.enabled:
-            print(f"{Logger.Colors.WHITE}[VERBOSE] {Logger.PREFIX}: {message}{Logger.Colors.RESET}")
+            print(f"{Logger.COLORS['VERBOSE']}[VERB] {Logger.PREFIX}: {message}{Logger.COLORS['RESET']}")
     
