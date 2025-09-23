@@ -4,6 +4,7 @@ from dataclasses import dataclass
 class BookDetail:
     title: str
     price: str
+    category: str
     available: bool
     stock_count: int
     rating: str

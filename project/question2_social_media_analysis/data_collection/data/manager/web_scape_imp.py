@@ -11,12 +11,15 @@ class WebScrapeImp(IWebScarape):
         elements = soup.select(selector)
         return [elementMapper(elm) for elm in elements]
     
-    def getFromHtmlSingle(self, htmlText: str, selector: str, elementMapper: Callable[[BS], T]) -> T | None:
+    def getFromHtmlSingle(self, htmlText: str, elementMapper: Callable[[BS], T], selector: str | None = None) -> T | None:
         soup = BS(htmlText, 'html.parser')
-        element = soup.select_one(selector)
-        if element:
-            return elementMapper(element)
-        return None
+        if selector is not None:
+            element = soup.select_one(selector)
+            if element:
+                return elementMapper(element)
+            return None
+        else:
+            return elementMapper(soup)
     
     def getFromXml(self,
                     xmlContent:str,

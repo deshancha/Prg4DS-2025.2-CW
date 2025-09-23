@@ -13,11 +13,11 @@ class IWebScarape(ABC):
     ) -> List[T]:
         pass
 
-    def getFromHtmlSingle(
-        htmlText: str,
-        selector: str,
-        elementMapper: Callable[[BS], T]) -> T | None:
-        pass
+        def getFromHtmlSingle(self,
+                                htmlText: str,
+                                elementMapper: Callable[[BS], T],
+                                selector: str | None = None) -> T | None:
+            pass
 
     def getFromXml(self,
                     xmlContent:str,

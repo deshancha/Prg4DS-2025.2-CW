@@ -30,13 +30,14 @@ def _mapBookMeta(element: BS) -> BookMeta:
 
 # callback param calls from scraper, this would parse Book Details html
 def _mapBook(element: BS) -> BookDetail:
+    article = element.select_one("article.product_page")
     titleTag = element.find("h1")
     title = titleTag.text.strip() if titleTag else ""
 
-    priceTag = element.select_one("p.price_color")
+    priceTag = article.select_one("p.price_color")
     price = priceTag.text.strip() if priceTag else ""
 
-    availability_text = element.select_one("p.instock.availability").get_text(strip=True)
+    availability_text = article.select_one("p.instock.availability").get_text(strip=True)
     available = "In stock" in availability_text
     stock_count = 0
     
@@ -44,7 +45,7 @@ def _mapBook(element: BS) -> BookDetail:
     if match:
         stock_count = int(match.group(1))
 
-    rating_tag = element.select_one("p.star-rating")
+    rating_tag = article.select_one("p.star-rating")
     rating = ""
     if rating_tag and rating_tag.get("class"):
         for c in rating_tag["class"]:
@@ -52,11 +53,11 @@ def _mapBook(element: BS) -> BookDetail:
                 rating = c
                 break
 
-    desc_tag = element.select_one("#product_description ~ p")
+    desc_tag = article.select_one("#product_description ~ p")
     description = desc_tag.get_text(strip=True) if desc_tag else ""
 
     def get_table_value(label: str) -> str:
-        row = element.select_one(f"table.table tr:has(th:-soup-contains('{label}')) td")
+        row = article.select_one(f"table.table tr:has(th:-soup-contains('{label}')) td")
         return row.get_text(strip=True) if row else ""
     
     upc = get_table_value("UPC")
@@ -66,9 +67,13 @@ def _mapBook(element: BS) -> BookDetail:
     tax = get_table_value("Tax")
     num_reviews = int(get_table_value("Number of reviews") or 0)
 
+    breadcrumb_items = element.select("ul.breadcrumb li a")  # note select() returns a list
+    category = breadcrumb_items[-1].text.strip() if len(breadcrumb_items) >= 3 else ""  
+
     return BookDetail(
         title=title,
         price=price,
+        category=category,
         available=available,
         stock_count=stock_count,
         rating=rating,
@@ -119,7 +124,7 @@ class BookScrapeImp(IBookScrape):
         if not responseOk(response):
             return None
         
-        bookDetail = self.scraper.getFromHtmlSingle(response.body, "article.product_page", _mapBook)
+        bookDetail = self.scraper.getFromHtmlSingle(response.body, _mapBook)
         
         return bookDetail
 
