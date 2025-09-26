@@ -1,5 +1,5 @@
 # =======================================================
-# File: secure_student_record.py
+# File: secure__student_record.py
 # Created by: CD
 # Date: 2025-09-06
 # =======================================================
@@ -16,26 +16,26 @@ class SecureStudentRecord:
         self._reset(student)
 
     def _reset(self, student: Student):
-        self._student = student
-        self._gpa: float | None = None
+        self.__student = student
+        self.__gpa: float | None = None
 
     # Setter/getter for student
     @property
     def student(self) -> Student:
-        return self._student
+        return self.__student
 
     @student.setter
-    def student(self, new_student: Student):
-        if not isinstance(new_student, Student):
+    def student(self, new__student: Student):
+        if not isinstance(new__student, Student):
             raise TypeError("Assigned value must be a Student instance.")
-        self._reset(new_student)
+        self._reset(new__student)
 
     # gpa getter
     @property
     def gpa(self) -> float:
-        if self._gpa is None:
-            self._gpa = self._student.calculate_gpa()
-        return self._gpa
+        if self.__gpa is None:
+            self.__gpa = self.__student.calculate_gpa()
+        return self.__gpa
     
     # allow set gpa from outside 
     @gpa.setter
@@ -46,14 +46,14 @@ class SecureStudentRecord:
             raise ValueError("GPA must be between 0.0 and 4.0.")
         
         # now gpa getter always return this value
-        self._gpa = round(float(value), 2)
+        self.__gpa = round(float(value), 2)
     
     # validation
     def enroll_course(self, semester, course: Course):
-        if semester not in self._student._semester_courses:
-            self._student._semester_courses[semester] = {}
+        if semester not in self.__student._semester_courses:
+            self.__student._semester_courses[semester] = {}
 
-        if len(self._student._semester_courses[semester]) >= ConstVals.MAX_COURSES_PER_SEMESTER:
+        if len(self.__student._semester_courses[semester]) >= ConstVals.MAX_COURSES_PER_SEMESTER:
             raise ValueError(f"Cannot enroll in more than {ConstVals.MAX_COURSES_PER_SEMESTER} courses in {semester}.")
 
-        self._student.enroll_course(semester, course)
+        self.__student.enroll_course(semester, course)
