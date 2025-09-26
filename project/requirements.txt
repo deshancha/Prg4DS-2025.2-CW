@@ -9,3 +9,4 @@ matplotlib==3.10.6
 seaborn==0.13.2
 numpy==2.3.3
 plotly==6.3.0
+aioresponses==0.7.8
