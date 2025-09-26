@@ -9,41 +9,11 @@ pip install -r requirements.txt
 
 ## 📌 Question 1 – Enhanced OOP
 
-This project demonstrates an **Enhanced Object-Oriented Design** that follows **Clean Architecture** principles.
+This project demonstrates an **Enhanced Object-Oriented Design** that follows **Seperation** principles.
 
 ### ✅ Features
 - Extensible design using interfaces and implementations (eg: StudentManagerImp, CourseManagerImp)
 - models, log manager
-
----
-
-## 📂 Project Structure
-
-```yaml
-Q1-EnhancedOOP:
-  src:
-    domain:
-      model:
-        people:
-          - person.py
-          - student.py
-          - faculty.py
-        other:
-            - academic_status.py
-            - course.py
-            - grade.py
-      manager:
-       - istudent_manager.py
-    data:
-      manager:
-        - student_manager_imp.py
-    - SecureStudentRecord.py
-  tests:
-    - test_faculty.py
-    - test_person.py
-    - test_student_logics.py
-    - test_student.py
-```
 
 ## Running Unit Tests
 
@@ -122,4 +92,50 @@ The `tests/test_person.py` has following test classes:
 #### ▶️ Person Tests
 ```bash
 PYTHONPATH=src LOG_ENABLED=1 python -m unittest tests.test_person
+```
+
+## 📌 Question 2 – Social Media Analysis
+
+## Data Collection
+
+This project demonstrates an **Enhanced Object-Oriented Design** that follows **Clean Architecture** principles.
+
+### ✅ Features
+- Extensible design using clean architecture
+- Asynchronous Book Scraping with python coroutines
+- Dependancy Injection
+- Colored Logs [Info, Warn, Error, Verbose]
+- Tests and Mocks
+
+## Execute Book Scraping Async, this is faster (~16 Sec)
+
+This will scrape all 1000 books and save in the raw_files/books.json
+
+▶️  From the project root:
+
+```bash
+cd project/question2_social_media_analysis/data_collection
+LOG_ENABLED=1 ASYNC=1 python main.py
+```
+
+## Execute Book Scraping thread blocking, this is slow (~500+ Sec)
+
+This will scrape all 1000 books and save in the raw_files/books.json
+
+▶️  From the project root:
+
+```bash
+cd project/question2_social_media_analysis/data_collection
+LOG_ENABLED=1 ASYNC=0 python main.py
+```
+
+### 3. HTTP Client Tests
+
+The `tests/test_http_async.py` has following test classes:
+
+- `TestHttpClientImp`
+
+#### ▶️ TestHttpClientImp Tests
+```bash
+PYTHONPATH=. python -m unittest tests.test_http_async
 ```
