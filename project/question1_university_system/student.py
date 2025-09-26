@@ -1,3 +1,9 @@
+# =======================================================
+# File: student.py
+# Created by: CD
+# Date: 2025-09-06
+# =======================================================
+
 from person import Person
 from model.academic_status import AcademicStatus
 from model.results import Results

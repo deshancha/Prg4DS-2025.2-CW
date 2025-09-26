@@ -32,6 +32,7 @@ class Professor(Faculty):
     def get_responsibilities(self):
         return f"Responsibilities of Professor[{self.name}] goes here"
     
+    # override
     def calculate_workload(self):
         return super().calculate_workload() + 50
 
