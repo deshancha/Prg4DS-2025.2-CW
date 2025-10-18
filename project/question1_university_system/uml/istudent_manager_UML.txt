@@ -1,0 +1,10 @@
+@startuml
+class IStudentManager {
+    enroll()
+    drop()
+    set_results()
+    gpa()
+        __init__()
+}
+ABC <|-- IStudentManager
+@enduml

@@ -1,0 +1,6 @@
+@startuml
+class Grade {
+        __init__()
+}
+Enum <|-- Grade
+@enduml

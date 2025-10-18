@@ -1,0 +1,9 @@
+@startuml
+class Department {
+    add_faculty()
+    add_course()
+    add_student()
+        name
+    __init__()
+}
+@enduml

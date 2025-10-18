@@ -1,0 +1,9 @@
+@startuml
+class Results {
+        semester
+    course_code
+    course_grade : Grade 
+    __init__(course_grade: Grade )
+}
+Results --> Grade
+@enduml

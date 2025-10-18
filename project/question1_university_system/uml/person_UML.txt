@@ -1,0 +1,9 @@
+@startuml
+class Person {
+    get_responsibilities()
+        person_id
+    name
+    __init__()
+}
+ABC <|-- Person
+@enduml

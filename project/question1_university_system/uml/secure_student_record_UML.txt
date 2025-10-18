@@ -1,0 +1,18 @@
+@startuml
+class ConstVals {
+        __init__()
+}
+class SecureStudentRecord {
+    _reset()
+    student()
+    student()
+    gpa()
+    gpa()
+    enroll_course()
+        __student
+    __gpa : float 
+    __gpa
+    __gpa
+    __init__(__gpa: float )
+}
+@enduml

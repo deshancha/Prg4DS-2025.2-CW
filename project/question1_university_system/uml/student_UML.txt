@@ -1,0 +1,32 @@
+@startuml
+class Student {
+    semester_courses()
+    course_results()
+    get_academic_status()
+    enroll_course()
+    drop_course()
+    set_results()
+    calculate_gpa()
+    get_responsibilities()
+        student_id
+    _gpa
+    _academic_status : AcademicStatus 
+    _student_manager : IStudentManager 
+    gpa
+    _academic_status
+    __init__(_academic_status: AcademicStatus , _student_manager: IStudentManager )
+}
+class UndergraduateStudent {
+    get_responsibilities()
+        __init__()
+}
+class GraduateStudent {
+    get_responsibilities()
+        __init__()
+}
+Person <|-- Student
+Student --> AcademicStatus
+Student --> IStudentManager
+Student <|-- UndergraduateStudent
+Student <|-- GraduateStudent
+@enduml

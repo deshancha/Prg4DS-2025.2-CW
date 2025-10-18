@@ -1,0 +1,9 @@
+@startuml
+class ICourseManager {
+    add_student()
+    remove_student()
+    assign_faculty()
+        __init__()
+}
+ABC <|-- ICourseManager
+@enduml

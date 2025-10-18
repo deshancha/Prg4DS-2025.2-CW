@@ -1,0 +1,30 @@
+@startuml
+class Faculty {
+    get_responsibilities()
+    calculate_workload()
+        department
+    __init__()
+}
+class Professor {
+    get_responsibilities()
+    calculate_workload()
+        research_area
+    __init__()
+}
+class Lecturer {
+    get_responsibilities()
+    calculate_workload()
+        teach_subjects
+    __init__()
+}
+class TA {
+    get_responsibilities()
+    calculate_workload()
+        assistant_to
+    __init__()
+}
+Person <|-- Faculty
+Faculty <|-- Professor
+Faculty <|-- Lecturer
+Faculty <|-- TA
+@enduml

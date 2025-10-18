@@ -1,0 +1,104 @@
+@startuml
+' Layout & style
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+' ======================================
+' Managers
+' ======================================
+package "Managers" {
+    interface IStudentManager {
+        +enroll()
+        +drop()
+        +set_results()
+        +gpa()
+    }
+
+    class StudentManagerImp {
+        +enroll()
+        +drop()
+        +set_results()
+        +gpa()
+        +_get_courses()
+    }
+
+    IStudentManager <|-- StudentManagerImp
+}
+
+' ======================================
+' People & Students
+' ======================================
+package "People" {
+    abstract class Person {
+        +get_responsibilities()
+        -person_id
+        -name
+    }
+
+    class Faculty {
+        +get_responsibilities()
+        +calculate_workload()
+        -department
+    }
+
+    class Professor {
+        +get_responsibilities()
+        +calculate_workload()
+        -research_area
+    }
+
+    class Lecturer {
+        +get_responsibilities()
+        +calculate_workload()
+        -teach_subjects
+    }
+
+    class TA {
+        +get_responsibilities()
+        +calculate_workload()
+        -assistant_to
+    }
+
+    class Student {
+        +semester_courses()
+        +course_results()
+        +get_academic_status()
+        +enroll_course()
+        +drop_course()
+        +set_results()
+        +calculate_gpa()
+        +get_responsibilities()
+        -student_id
+        -_gpa
+        -_academic_status : AcademicStatus
+        -_student_manager : IStudentManager
+        +gpa
+    }
+
+    class UndergraduateStudent {
+        +get_responsibilities()
+    }
+
+    class GraduateStudent {
+        +get_responsibilities()
+    }
+
+    Person <|-- Faculty
+    Person <|-- Student
+    Faculty <|-- Professor
+    Faculty <|-- Lecturer
+    Faculty <|-- TA
+    Student <|-- UndergraduateStudent
+    Student <|-- GraduateStudent
+    Student --> IStudentManager
+}
+
+' ======================================
+' ABC Relationships (outside packages)
+' ======================================
+ABC <|-- IStudentManager
+ABC <|-- Person
+
+@enduml

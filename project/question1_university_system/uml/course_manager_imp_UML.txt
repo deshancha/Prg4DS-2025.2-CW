@@ -1,0 +1,9 @@
+@startuml
+class CourseManagerImp {
+    add_student()
+    remove_student()
+    assign_faculty()
+        __init__()
+}
+ICourseManager <|-- CourseManagerImp
+@enduml

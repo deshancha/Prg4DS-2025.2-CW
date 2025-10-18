@@ -1,0 +1,7 @@
+@startuml
+class AcademicStatus {
+    from_gpa()
+        __init__()
+}
+Enum <|-- AcademicStatus
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+class Course {
+    add_student()
+    remove_student()
+    add_faculty()
+        course_code
+    course_name
+    course_credits
+    max_students_allowd
+    reading_students : List[str] 
+    should_have_completed
+    _course_manager : ICourseManager 
+    assigned_faculty : List[str] 
+    __init__(reading_students: List[str] , _course_manager: ICourseManager , assigned_faculty: List[str] )
+}
+Course --> ICourseManager
+@enduml

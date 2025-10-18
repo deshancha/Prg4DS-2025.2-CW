@@ -1,0 +1,11 @@
+@startuml
+class StudentManagerImp {
+    enroll()
+    drop()
+    set_results()
+    gpa()
+    _get_courses()
+        __init__()
+}
+IStudentManager <|-- StudentManagerImp
+@enduml
